@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.book.mapper.bookTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.book.model.bookType" >
+    <constructor >
+      <idArg column="t_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="type_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="BM" type="com.zking.book.model.bookType" >
+      <id column="t_id" property="tId" javaType="java.lang.Integer" />
+      <result column="type_name" property="typeName" javaType="java.lang.String" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    t_id, type_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from book_type
+    where t_id = #{tId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from book_type
+    where t_id = #{tId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.book.model.bookType" >
+    insert into book_type (t_id, type_name)
+    values (#{tId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.book.model.bookType" >
+    insert into book_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tId != null" >
+        t_id,
+      </if>
+      <if test="typeName != null" >
+        type_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tId != null" >
+        #{tId,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.book.model.bookType" >
+    update book_type
+    <set >
+      <if test="typeName != null" >
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where t_id = #{tId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.book.model.bookType" >
+    update book_type
+    set type_name = #{typeName,jdbcType=VARCHAR}
+    where t_id = #{tId,jdbcType=INTEGER}
+  </update>
+  <select id="listTypeName" resultMap="BM" parameterType="com.zking.book.model.bookType">
+    select * from book_type where 1=1
+  </select>
+</mapper>

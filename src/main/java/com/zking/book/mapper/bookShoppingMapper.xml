@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zking.book.mapper.bookShoppingMapper">
+  <resultMap id="BaseResultMap" type="com.zking.book.model.bookShopping">
+    <constructor>
+      <idArg column="s_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="b_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="s_cout" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="s_num" javaType="java.lang.Float" jdbcType="REAL" />
+      <arg column="u_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <resultMap id="BRM" type="com.zking.book.model.bookShopping">
+      <id column="s_id" javaType="java.lang.Integer" property="sId" />
+      <result column="b_id" javaType="java.lang.Integer" property="bId" />
+      <result column="s_cout" javaType="java.lang.Integer" property="sCout" />
+      <result column="s_num" javaType="java.lang.Float" property="sNum" />
+      <result column="u_id" javaType="java.lang.Integer" property="uId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_id, b_id, s_cout, s_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book_shopping
+    where s_id = #{sId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from book_shopping
+    where s_id = #{sId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.book.model.bookShopping">
+    insert into book_shopping (s_id, b_id, s_cout,s_num,u_id)
+    values (#{sId,jdbcType=INTEGER}, #{bId,jdbcType=INTEGER}, #{sCout,jdbcType=INTEGER}, 
+      #{sNum,jdbcType=REAL},#{uId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.book.model.bookShopping">
+    insert into book_shopping
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        s_id,
+      </if>
+      <if test="bId != null">
+        b_id,
+      </if>
+      <if test="sCout != null">
+        s_cout,
+      </if>
+      <if test="sNum != null">
+        s_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="bId != null">
+        #{bId,jdbcType=INTEGER},
+      </if>
+      <if test="sCout != null">
+        #{sCout,jdbcType=INTEGER},
+      </if>
+      <if test="sNum != null">
+        #{sNum,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.book.model.bookShopping">
+    update book_shopping
+    <set>
+      <if test="bId != null">
+        b_id = #{bId,jdbcType=INTEGER},
+      </if>
+      <if test="sCout != null">
+        s_cout = #{sCout,jdbcType=INTEGER},
+      </if>
+      <if test="sNum != null">
+        s_num = #{sNum,jdbcType=REAL},
+      </if>
+    </set>
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.book.model.bookShopping">
+    update book_shopping
+    set b_id = #{bId,jdbcType=INTEGER},
+      s_cout = #{sCout,jdbcType=INTEGER},
+      s_num = #{sNum,jdbcType=REAL}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <select id="loadbid" parameterType="com.zking.book.model.bookShopping" resultMap="BRM">
+    select *
+    from book_shopping
+    where b_id = #{bId,jdbcType=INTEGER} and u_id=#{uId,jdbcType=INTEGER}
+  </select>
+  <update id="updateshop" parameterType="com.zking.book.model.bookShopping">
+    update book_shopping
+    set s_cout=s_cout+1,s_num=s_num*s_cout
+    where b_id=#{bId,jdbcType=INTEGER}
+  </update>
+</mapper>

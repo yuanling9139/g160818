@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.book.mapper.BookrMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.book.model.Bookr" >
+    <constructor >
+      <idArg column="b_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="b_bt" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="b_zz" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="t_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="b_jg" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="b_cbs" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="b_sjjj" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="b_scsj" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="b_sjzt" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="b_img" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="bm" type="com.zking.book.model.Bookr" >
+      <id column="b_id" property="bId" javaType="java.lang.Integer" />
+      <result column="b_bt" property="bBt" javaType="java.lang.String" />
+      <result column="b_zz" property="bZz" javaType="java.lang.String" />
+      <result column="t_id" property="tId" javaType="java.lang.Integer" />
+      <result column="b_jg" property="bJg" javaType="java.lang.Float" />
+      <result column="b_cbs" property="bCbs" javaType="java.lang.String" />
+      <result column="b_sjjj" property="bSjjj" javaType="java.lang.String" />
+      <result column="b_scsj" property="bScsj" javaType="java.util.Date" />
+      <result column="b_sjzt" property="bSjzt" javaType="java.lang.Integer" />
+      <result column="b_img" property="bImg" javaType="java.lang.String" />
+      <result column="b_sjtop" property="bSjtop" javaType="java.lang.Integer" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    b_id, b_bt, b_zz, t_id, b_jg, b_cbs, b_sjjj, b_scsj, b_sjzt, b_img
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="bm" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from book
+    where b_id = #{bId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from book
+    where b_id = #{bId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.book.model.Bookr" >
+    insert into book (b_id, b_bt, b_zz, 
+      t_id, b_jg, b_cbs, b_sjjj, 
+      b_scsj, b_sjzt, b_img
+      )
+    values (#{bId,jdbcType=INTEGER}, #{bBt,jdbcType=VARCHAR}, #{bZz,jdbcType=VARCHAR}, 
+      #{tId,jdbcType=INTEGER}, #{bJg,jdbcType=REAL}, #{bCbs,jdbcType=VARCHAR}, #{bSjjj,jdbcType=VARCHAR}, 
+      #{bScsj,jdbcType=TIMESTAMP}, #{bSjzt,jdbcType=INTEGER}, #{bImg,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.book.model.Bookr" >
+    insert into book
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bId != null" >
+        b_id,
+      </if>
+      <if test="bBt != null" >
+        b_bt,
+      </if>
+      <if test="bZz != null" >
+        b_zz,
+      </if>
+      <if test="tId != null" >
+        t_id,
+      </if>
+      <if test="bJg != null" >
+        b_jg,
+      </if>
+      <if test="bCbs != null" >
+        b_cbs,
+      </if>
+      <if test="bSjjj != null" >
+        b_sjjj,
+      </if>
+      <if test="bScsj != null" >
+        b_scsj,
+      </if>
+      <if test="bSjzt != null" >
+        b_sjzt,
+      </if>
+      <if test="bImg != null" >
+        b_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bId != null" >
+        #{bId,jdbcType=INTEGER},
+      </if>
+      <if test="bBt != null" >
+        #{bBt,jdbcType=VARCHAR},
+      </if>
+      <if test="bZz != null" >
+        #{bZz,jdbcType=VARCHAR},
+      </if>
+      <if test="tId != null" >
+        #{tId,jdbcType=INTEGER},
+      </if>
+      <if test="bJg != null" >
+        #{bJg,jdbcType=REAL},
+      </if>
+      <if test="bCbs != null" >
+        #{bCbs,jdbcType=VARCHAR},
+      </if>
+      <if test="bSjjj != null" >
+        #{bSjjj,jdbcType=VARCHAR},
+      </if>
+      <if test="bScsj != null" >
+        #{bScsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bSjzt != null" >
+        #{bSjzt,jdbcType=INTEGER},
+      </if>
+      <if test="bImg != null" >
+        #{bImg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.book.model.Bookr" >
+    update book
+    <set >
+      <if test="bBt != null" >
+        b_bt = #{bBt,jdbcType=VARCHAR},
+      </if>
+      <if test="bZz != null" >
+        b_zz = #{bZz,jdbcType=VARCHAR},
+      </if>
+      <if test="tId != null" >
+        t_id = #{tId,jdbcType=INTEGER},
+      </if>
+      <if test="bJg != null" >
+        b_jg = #{bJg,jdbcType=REAL},
+      </if>
+      <if test="bCbs != null" >
+        b_cbs = #{bCbs,jdbcType=VARCHAR},
+      </if>
+      <if test="bSjjj != null" >
+        b_sjjj = #{bSjjj,jdbcType=VARCHAR},
+      </if>
+      <if test="bScsj != null" >
+        b_scsj = #{bScsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bSjzt != null" >
+        b_sjzt = #{bSjzt,jdbcType=INTEGER},
+      </if>
+      <if test="bImg != null" >
+        b_img = #{bImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where b_id = #{bId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.book.model.Bookr" >
+    update book
+    set b_bt = #{bBt,jdbcType=VARCHAR},
+      b_zz = #{bZz,jdbcType=VARCHAR},
+      t_id = #{tId,jdbcType=INTEGER},
+      b_jg = #{bJg,jdbcType=REAL},
+      b_cbs = #{bCbs,jdbcType=VARCHAR},
+      b_sjjj = #{bSjjj,jdbcType=VARCHAR},
+      b_scsj = #{bScsj,jdbcType=TIMESTAMP},
+      b_sjzt = #{bSjzt,jdbcType=INTEGER},
+      b_img = #{bImg,jdbcType=VARCHAR}
+    where b_id = #{bId,jdbcType=INTEGER}
+  </update>
+  <select id="list" resultMap="bm" parameterType="com.zking.book.model.Bookr">
+    select * from book order by b_scsj desc limit 5
+  </select>
+  <select id="listtop" resultMap="bm" parameterType="com.zking.book.model.Bookr">
+    select * from book order by b_sjtop desc limit 5
+  </select>
+  <select id="listtype" resultMap="bm" parameterType="com.zking.book.model.Bookr">
+    select * from book where t_id= #{tId,jdbcType=INTEGER}
+  </select>
+  <select id="listzt" resultMap="bm" parameterType="com.zking.book.model.Bookr">
+    select * from book where b_sjzt= #{bSjzt,jdbcType=INTEGER}
+  </select>
+  <update id="editzt" parameterType="com.zking.book.model.Bookr">
+    update book
+    set b_sjzt=#{bSjzt,jdbcType=INTEGER}
+    where b_id=#{bId,jdbcType=INTEGER}
+  </update>
+</mapper>
